@@ -69,12 +69,9 @@ def precess_data():
 
 # 将句子转换成字典序号序列
 def word_trans(wordline, word_dic):
-    word_inc = []
     line = wordline.strip()
     line = line.decode("utf-8", "ignore")
-    for n in range(len(line)):
-        word_inc.append([word_dic[line[n]]])
-
+    word_inc = [[word_dic[line[n]]] for n in range(len(line))]
     return np.array(word_inc)
 
 X,Z,word_dic = precess_data()

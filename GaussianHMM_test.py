@@ -44,7 +44,7 @@ class GaussianHMM_Test(unittest.TestCase):
     def test_train_batch(self):
         X = []
         Z = []
-        for b in range(self.n_batch):
+        for _ in range(self.n_batch):
             b_X, b_Z = self.comp_hmm.module.sample(self.X_length)
             X.append(b_X)
             Z.append(b_Z)

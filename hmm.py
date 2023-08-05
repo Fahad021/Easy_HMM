@@ -79,9 +79,7 @@ class _BaseHMM():
             Z = np.ones((X_length, self.n_state))
         # 向前向后传递因子
         _, c = self.forward(X, Z)  # P(x,z)
-        # 序列的出现概率估计
-        prob_X = np.sum(np.log(c))  # P(X)
-        return prob_X
+        return np.sum(np.log(c))
 
     # 已知当前序列预测未来（下一个）观测值的概率
     def predict(self, X, x_next, Z_seq=np.array([]), istrain=True):
@@ -97,8 +95,9 @@ class _BaseHMM():
             Z = np.ones((X_length, self.n_state))
         # 向前向后传递因子
         alpha, _ = self.forward(X, Z)  # P(x,z)
-        prob_x_next = self.emit_prob(np.array([x_next]))*np.dot(alpha[X_length - 1],self.transmat_prob)
-        return prob_x_next
+        return self.emit_prob(np.array([x_next])) * np.dot(
+            alpha[X_length - 1], self.transmat_prob
+        )
 
     def decode(self, X, istrain=True):
         """
